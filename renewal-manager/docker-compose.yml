@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: renewal_db
+    restart: always
+    environment:
+      POSTGRES_DB: renewal_db
+      POSTGRES_USER: renewal_user
+      POSTGRES_PASSWORD: renewal_secure_password_2026
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  web:
+    build: ./backend
+    container_name: renewal_backend
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "9988:8000"
+    environment:
+      - DEBUG=1
+      - DB_NAME=renewal_db
+      - DB_USER=renewal_user
+      - DB_PASSWORD=renewal_secure_password_2026
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: renewal_frontend
+    restart: always
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+    name: renewal_postgres_persistent_volume
