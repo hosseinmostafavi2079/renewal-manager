@@ -30,7 +30,6 @@ function Dashboard() {
     fetchData();
   };
 
-  // ساخت لینک تقویم گوگل با تمام جزئیات و باز کردن آن با یک کلیک
   const handleGoogleCalendar = (service) => {
     const date = new Date(service.end_date);
     const nextDate = new Date(date); nextDate.setDate(date.getDate() + 1);
@@ -83,9 +82,20 @@ function Dashboard() {
                   <div className="flex justify-between lg:block text-xs text-gray-500"><span className="text-gray-400 lg:hidden text-xs">کارگزار: </span><span>{service.provider}</span></div>
                 </div>
 
-                <div className="w-full lg:w-1/5 flex flex-col gap-1">
-                  <div className="flex justify-between lg:block"><span className="text-xs text-gray-400">بهای فروش:</span><span className="font-bold text-gray-900 text-sm mr-1">{Number(service.sell_price).toLocaleString()} <span className="text-[10px] font-normal text-gray-400">تومان</span></span></div>
-                  <div className="flex justify-between lg:block"><span className="text-xs text-gray-400">خرید:</span><span className="text-xs text-gray-500 mr-1">{Number(service.buy_price).toLocaleString()}</span></div>
+                {/* بخش مالی ارتقا یافته: جایگزینی خرید و فروش با فاکتور و بدهی */}
+                <div className="w-full lg:w-1/5 flex flex-col gap-1.5">
+                  <div className="flex justify-between lg:block">
+                    <span className="text-xs text-gray-400">مبلغ فاکتور:</span>
+                    <span className="font-bold text-gray-900 text-sm mr-1">{Number(service.sell_price).toLocaleString()} <span className="text-[10px] font-normal text-gray-400">تومان</span></span>
+                  </div>
+                  <div className="flex justify-between lg:block">
+                    <span className="text-xs text-gray-400">بدهی فعلی:</span>
+                    {service.payment_status === 'pending' ? (
+                      <span className="text-xs font-bold text-rose-600 mr-1">{Number(service.sell_price).toLocaleString()} <span className="text-[10px] font-normal opacity-70">تومان</span></span>
+                    ) : (
+                      <span className="text-xs font-bold text-emerald-600 mr-1">تسویه شده</span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="w-full lg:w-1/4 flex flex-col items-end gap-3 text-sm">
@@ -94,7 +104,6 @@ function Dashboard() {
                     <div><span className={`px-3 py-1.5 rounded-full text-xs font-bold ${service.payment_status === 'paid' ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-rose-50 text-rose-600 border border-rose-100'}`}>{service.payment_status_display}</span></div>
                   </div>
                   
-                  {/* دکمه‌های تقویم گوگل و مدیریت دقیقاً در دسترس */}
                   <div className="flex gap-2 w-full lg:w-auto mt-2">
                     <button onClick={() => handleGoogleCalendar(service)} className="p-2 bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="افزودن به تقویم گوگل">
                       <Calendar size={16} />
