@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('./assets/fonts/Vazir-Thin.woff2') format('woff2');
+  font-weight: 100;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('./assets/fonts/Vazir-Light.woff2') format('woff2');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('./assets/fonts/Vazir.woff2') format('woff2');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('./assets/fonts/Vazir-Medium.woff2') format('woff2');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('./assets/fonts/Vazir-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+/* Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  background-color: #0f1117;
+  color: #ffffff;
+  font-family: 'Vazirmatn', Tahoma, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+/* Date picker override for dark theme */
+.rmdp-wrapper,
+.rmdp-container .rmdp-wrapper {
+  background-color: #1a1d2e !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+  font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+}
+.rmdp-header-values, .rmdp-arrow-container:hover,
+.rmdp-day.rmdp-today span {
+  color: #a78bfa !important;
+}
+.rmdp-day span:hover, .rmdp-selected span {
+  background-color: #7c3aed !important;
+}
+.rmdp-day {
+  color: rgba(255,255,255,0.7) !important;
+}
+.rmdp-day.rmdp-disabled {
+  color: rgba(255,255,255,0.15) !important;
+}
+.rmdp-week-day {
+  color: rgba(255,255,255,0.25) !important;
+}
